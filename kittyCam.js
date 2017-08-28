@@ -7,7 +7,7 @@
 
 'use strict'
 
-const config = require('./config');
+const config = require('./config.js');
 const fs = require('fs');
 const child_process = require('child_process');
 
@@ -52,7 +52,7 @@ board.on('ready', () => {
 
         // Child process: read the file and detect cats with KittyDar
         let args = [imgPath];
-        let fork = child_process.fork(__dirname + '/detectCatsFromPhoto.js');
+        let fork = child_process.fork(__dirname + '/kittyDar.js');
         fork.send(args);
 
         // the child process is completed
@@ -89,48 +89,48 @@ function deletePhoto(imgPath) {
 // PubNub to publish the data
 // to make a separated web/mobile interface can subscribe the data to stream the photos in realtime.
 
-const channel = 'kittyCam';
+// const channel = 'kittyCam';
 
-const pubnub = require('pubnub').init({
-  subscribe_key: config.pubnub.subscribe_key,
-  publish_key: config.pubnub.publish_key
-});
+// const pubnub = require('pubnub').init({
+//   subscribe_key: config.pubnub.subscribe_key,
+//   publish_key: config.pubnub.publish_key
+// });
 
-function publish(url, timestamp) {
-  pubnub.publish({
-    channel: channel,
-    message: {image: url, timestamp: timestamp},
-    callback: (m) => {console.log(m);},
-    error: (err) => {console.log(err);}
-  });
-}
+// function publish(url, timestamp) {
+//   pubnub.publish({
+//     channel: channel,
+//     message: {image: url, timestamp: timestamp},
+//     callback: (m) => {console.log(m);},
+//     error: (err) => {console.log(err);}
+//   });
+// }
 
-// Nexmo to send SMS
+// // Nexmo to send SMS
 
-const Nexmo = require('nexmo');
+// const Nexmo = require('nexmo');
 
-const nexmo = new Nexmo({
-  apiKey: config.nexmo.api_key,
-  apiSecret: config.nexmo.api_secret
-});
+// const nexmo = new Nexmo({
+//   apiKey: config.nexmo.api_key,
+//   apiSecret: config.nexmo.api_secret
+// });
 
-function sendSMS(url, timestamp) {
-  var t = new Date(timestamp).toLocaleString();
-  let msg = '🐈 detected on '+ t + '! See the photo at: ' + url;
-  nexmo.message.sendSms(
-    config.nexmo.fromNumber,
-    config.nexmo.toNumber,
-    msg,
-    {type: 'unicode'},
-    (err, responseData) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.dir(responseData);
-      }
-    }
-  );
-}
+// function sendSMS(url, timestamp) {
+//   var t = new Date(timestamp).toLocaleString();
+//   let msg = '🐈 detected on '+ t + '! See the photo at: ' + url;
+//   nexmo.message.sendSms(
+//     config.nexmo.fromNumber,
+//     config.nexmo.toNumber,
+//     msg,
+//     {type: 'unicode'},
+//     (err, responseData) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.dir(responseData);
+//       }
+//     }
+//   );
+// }
 
 // Cloudinary to store the photos
 
