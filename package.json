@@ -8,6 +8,7 @@
     "cloudinary": "^1.3.1",
     "hog-descriptor": "^0.5.0",
     "johnny-five": "^0.9.62",
+    "kittydar": "github:girliemac/kittydar#patch-1",
     "nexmo": "^1.0.0-beta-7",
     "pubnub": "^3.16.5",
     "raspi-io": "^6.2.0"
