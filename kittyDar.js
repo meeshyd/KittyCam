@@ -26,7 +26,7 @@ process.on('message', (m) => {
     let ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, w, h, 0, 0, w, h);
 
-    console.log('PID ' + process.pid + ': ditecting cats in the photo...');
+    console.log('PID ' + process.pid + ': detecting cats in the photo...');
 
     let cats = kittydar.detectCats(canvas);
     console.log('There are', cats.length, 'cats in this photo');

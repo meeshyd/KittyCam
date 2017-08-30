@@ -89,21 +89,21 @@ function deletePhoto(imgPath) {
 // PubNub to publish the data
 // to make a separated web/mobile interface can subscribe the data to stream the photos in realtime.
 
-// const channel = 'kittyCam';
+const channel = 'kitty';
 
-// const pubnub = require('pubnub').init({
-//   subscribe_key: config.pubnub.subscribe_key,
-//   publish_key: config.pubnub.publish_key
-// });
+const pubnub = require('pubnub').init({
+  subscribe_key: config.pubnub.subscribe_key,
+  publish_key: config.pubnub.publish_key
+});
 
-// function publish(url, timestamp) {
-//   pubnub.publish({
-//     channel: channel,
-//     message: {image: url, timestamp: timestamp},
-//     callback: (m) => {console.log(m);},
-//     error: (err) => {console.log(err);}
-//   });
-// }
+function publish(url, timestamp) {
+  pubnub.publish({
+    channel: channel,
+    message: {image: url, timestamp: timestamp},
+    callback: (m) => {console.log(m);},
+    error: (err) => {console.log(err);}
+  });
+}
 
 // // Nexmo to send SMS
 
@@ -146,7 +146,7 @@ function uploadToCloudinary(base64Img, timestamp) {
   cloudinary.uploader.upload(base64Img, (result) => {
     console.log(result);
     publish(result.url, timestamp); // Comment this out if you don't use PubNub
-    sendSMS(result.url, timestamp); // Comment this out if you don't use Nexmo
+    // sendSMS(result.url, timestamp); // Comment this out if you don't use Nexmo
   });
 }
 
