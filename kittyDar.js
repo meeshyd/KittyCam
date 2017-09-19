@@ -1,7 +1,3 @@
-// KittyDar - cat facial detection
-// Note: this file and kittydar need to use the same canvas module, otherwise it failes.
-// https://github.com/Automattic/node-canvas/issues/487
-
 'use strict'
 
 const fs = require('fs');
